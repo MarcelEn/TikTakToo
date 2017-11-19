@@ -1,0 +1,22 @@
+td.field{
+    width: 150px;
+    height: 150px;
+    background: #fff8ce;
+    border: 3px solid black;
+    box-shadow: 0px 0px 5px black;
+}
+div.field-part{
+    width: 100%;
+    height: 100%;
+    transition: 0.3s;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 90pt;
+}
+div.available{
+    cursor: pointer;
+}
+div.available:hover{
+    background: #fffbaf;
+    box-shadow: 0px 0px 50px black;
+}
