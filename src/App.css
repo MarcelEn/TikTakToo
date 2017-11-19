@@ -1,0 +1,16 @@
+body{
+    background:#ededed;
+}
+#body{
+    width: 70%;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px gray;
+    padding: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+*{
+    font-family: arial;
+}

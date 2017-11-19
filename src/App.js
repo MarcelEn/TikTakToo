@@ -5,7 +5,7 @@ import TikTakTooField from './components/TikTakTooField';
 class App extends Component {
   render() {
     return (
-      <div>
+      <div id='body'>
         <TikTakTooField />
       </div>
     );

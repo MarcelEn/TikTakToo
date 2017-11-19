@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './TikTakTooField.css';
 import Field from './Field';
+import Error from './Error';
 
 class TikTakTooField extends Component {
   constructor(props) {
@@ -23,7 +24,8 @@ class TikTakTooField extends Component {
       score: [0, 0],
       iAmPlayer: 'X',
       serverError: false,
-      alreadyMadeAnInput: false
+      alreadyMadeAnInput: false,
+      winStatus: null
     };
     this.fieldEventHandler = this.fieldEventHandler.bind(this);
     this.makeNotMyTurnErrorTimeout = this.makeNotMyTurnErrorTimeout.bind(this);
@@ -32,6 +34,8 @@ class TikTakTooField extends Component {
     if (!this.state.myTurn) {
       this.setState({ ...this.state, notMyTurnError: [true, true] });
     } else if (this.state.alreadyMadeAnInput === false) {
+      // this have to be done bevore the requerst:
+      //this.setState({...this.state, alreadyMadeAnInput: fieldid});
       // simulate positve response here i have to make a request for serverside confirmation
       let currentState = { ...this.state };
       let response = {
@@ -49,9 +53,8 @@ class TikTakTooField extends Component {
         newState.score = [...response.score];
         newState.myTurn = false;
       }
+      newState.alreadyMadeAnInput = fieldid;
       this.setState(newState);
-    } else {
-      //alreadyMadeAnInput ... add props to Field that shows the acitve request field...
     }
   }
   makeNotMyTurnErrorTimeout() {
@@ -69,8 +72,8 @@ class TikTakTooField extends Component {
       this.makeNotMyTurnErrorTimeout(); // throws errors but does the correct job
     }
     return (
-      <div>
-        <div>
+      <div id='tiktaktooField'>
+        <div id='scoreBoard'>
           {this.state.score[0]} : {this.state.score[1]}
         </div>
         <table>
@@ -80,16 +83,19 @@ class TikTakTooField extends Component {
                 text={this.state.data[0]}
                 myTurn={this.state.myTurn}
                 fieldEventHandler={this.fieldEventHandler}
+                alreadyMadeAnInput={this.state.alreadyMadeAnInput}
               />
               <Field fieldid="1"
                 text={this.state.data[1]}
                 myTurn={this.state.myTurn}
                 fieldEventHandler={this.fieldEventHandler}
+                alreadyMadeAnInput={this.state.alreadyMadeAnInput}
               />
               <Field fieldid="2"
                 text={this.state.data[2]}
                 myTurn={this.state.myTurn}
                 fieldEventHandler={this.fieldEventHandler}
+                alreadyMadeAnInput={this.state.alreadyMadeAnInput}
               />
             </tr>
             <tr>
@@ -97,16 +103,19 @@ class TikTakTooField extends Component {
                 text={this.state.data[3]}
                 myTurn={this.state.myTurn}
                 fieldEventHandler={this.fieldEventHandler}
+                alreadyMadeAnInput={this.state.alreadyMadeAnInput}
               />
               <Field fieldid="4"
                 text={this.state.data[4]}
                 myTurn={this.state.myTurn}
                 fieldEventHandler={this.fieldEventHandler}
+                alreadyMadeAnInput={this.state.alreadyMadeAnInput}
               />
               <Field fieldid="5"
                 text={this.state.data[5]}
                 myTurn={this.state.myTurn}
                 fieldEventHandler={this.fieldEventHandler}
+                alreadyMadeAnInput={this.state.alreadyMadeAnInput}
               />
             </tr>
             <tr>
@@ -114,25 +123,26 @@ class TikTakTooField extends Component {
                 text={this.state.data[6]}
                 myTurn={this.state.myTurn}
                 fieldEventHandler={this.fieldEventHandler}
+                alreadyMadeAnInput={this.state.alreadyMadeAnInput}
               />
               <Field fieldid="7"
                 text={this.state.data[7]}
                 myTurn={this.state.myTurn}
                 fieldEventHandler={this.fieldEventHandler}
+                alreadyMadeAnInput={this.state.alreadyMadeAnInput}
               />
               <Field fieldid="8"
                 text={this.state.data[8]}
                 myTurn={this.state.myTurn}
                 fieldEventHandler={this.fieldEventHandler}
+                alreadyMadeAnInput={this.state.alreadyMadeAnInput}
               />
             </tr>
           </tbody>
         </table>
-        {this.state.notMyTurnError[1] ?
-          <div>Du bist nicht an der Reihe</div>
-          :
-          ''
-        }
+        
+        <Error show={this.state.notMyTurnError[1] ? true : false} text='Du bist nicht an der Reihe' />
+
       </div>
     );
   }
